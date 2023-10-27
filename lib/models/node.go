@@ -14,8 +14,10 @@ import (
 
 var (
 	// Early defined pretties.
-	NotePretty   = ""
-	FolderPretty = ""
+	// NotePretty   = " "
+	// FolderPretty = " "
+	NotePretty   = "- "
+	FolderPretty = "/ "
 )
 
 // NodeType is custom string wrapper to represent node's type.

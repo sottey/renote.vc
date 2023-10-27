@@ -144,10 +144,9 @@ func PrintNodes(list []models.Node) {
 
 	for _, value := range list {
 		note := fmt.Sprintf(
-			" %v %s %v",
-			fmt.Sprintf("%s%s%s", GREY, "•", NOCOLOR),
-			fmt.Sprintf("%s%s%s", YELLOW, value.Pretty[0], NOCOLOR),
-			fmt.Sprintf("%s%s%s", DARKYELLOW, value.Pretty[1], NOCOLOR),
+			" %s %v",
+			fmt.Sprintf("%s%s%s", DARKYELLOW, value.Pretty[0], NOCOLOR),
+			fmt.Sprintf("%s%s%s", YELLOW, value.Pretty[1], NOCOLOR),
 		)
 		text.Println(note)
 	}
