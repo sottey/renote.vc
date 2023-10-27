@@ -15,11 +15,11 @@ import (
 	"github.com/sottey/renotevc/lib/models"
 )
 
-// NotyaPWD, generates path of renotevc's notes directory.
+// RenotevcPWD, generates path of renotevc's notes directory.
 // ╭───────────────────────╮   ╭───────────╮   ╭────────────╮
 // │ ~/user-home-directory │ + │ /renotevc │ = │ local path │
 // ╰───────────────────────╯   ╰───────────╯   ╰────────────╯
-func NotyaPWD(settings models.Settings) (*string, error) {
+func RenotevcPWD(settings models.Settings) (*string, error) {
 	path := settings.NotesPath
 
 	// Initialize default renotevc path.

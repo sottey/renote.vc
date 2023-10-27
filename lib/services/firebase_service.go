@@ -59,7 +59,7 @@ func (s *FirebaseService) StateConfig() models.Settings {
 }
 
 // renotevcCollection generates the main firestore collection reference.
-func (s *FirebaseService) NotyaCollection() firestore.CollectionRef {
+func (s *FirebaseService) RenotevcCollection() firestore.CollectionRef {
 	return *s.FireStore.Collection(s.Config.FirePath())
 }
 
@@ -68,7 +68,7 @@ func (s *FirebaseService) NotyaCollection() firestore.CollectionRef {
 // first returned value would be the full-valid path of provided node in collection,
 // and second returned value would be the valid "base" collection of that path.
 func (s *FirebaseService) GeneratePath(base *firestore.CollectionRef, n models.Node) (string, *firestore.CollectionRef) {
-	collection := s.NotyaCollection()
+	collection := s.RenotevcCollection()
 	if base != nil {
 		// if the base collection is provided, which is different than actual
 		// provided main-base connection of renotevc, we have to set it to the value.
@@ -474,7 +474,7 @@ func (s *FirebaseService) ClearNodes() ([]models.Node, []error) {
 // @param additional path, [typ] that is allowed to fetch, and ignore list.
 // @returns an array of all nodes, titles of nodes and error if something went wrong.
 func (s *FirebaseService) GetAll(additional, typ string, ignore []string) ([]models.Node, []string, error) {
-	collection := s.NotyaCollection()
+	collection := s.RenotevcCollection()
 	if len(additional) > 0 {
 		_, c := s.GenerateDoc(&collection, models.Node{Title: additional})
 		if c != nil {

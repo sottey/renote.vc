@@ -15,8 +15,8 @@ import (
 // listCommand is a command that used to list all exiting nodes.
 var listCommand = &cobra.Command{
 	Use:     "list",
-	Aliases: []string{"ls"},
-	Short:   "List all renotevc nodes (files and folders)",
+	Aliases: []string{"l", "ls"},
+	Short:   "List renotevc nodes (files and folders)",
 	Run:     runListCommand,
 }
 

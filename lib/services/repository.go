@@ -104,7 +104,7 @@ type ServiceRepo interface {
 	// GetAll gets the all notes from current service.
 	//
 	// [additional] provides a way of entering to sub-folders of main folder.
-	// [ignore] provides a way of ignoring files. Default ignorable files: [models.NotyaIgnoreFiles].
+	// [ignore] provides a way of ignoring files. Default ignorable files: [models.RenotevcIgnoreFiles].
 	// [typ] provides a way to get only specific type of file-nodes.
 	GetAll(additional, typ string, ignore []string) ([]models.Node, []string, error)
 

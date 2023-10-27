@@ -15,7 +15,7 @@ import (
 	"github.com/sottey/renotevc/pkg"
 )
 
-func TestNotyaPWD(t *testing.T) {
+func TestRenotevcPWD(t *testing.T) {
 	// Take current working directory first.
 	currentHomeDir, _ := os.UserHomeDir()
 
@@ -35,7 +35,7 @@ func TestNotyaPWD(t *testing.T) {
 	}
 
 	for _, td := range tests {
-		gotRes, gotErr := pkg.NotyaPWD(models.Settings{NotesPath: "renotevc"})
+		gotRes, gotErr := pkg.RenotevcPWD(models.Settings{NotesPath: "renotevc"})
 		if gotErr != td.exp.err {
 			t.Errorf("Path err sum was different: Got: %v | Want: %v", gotErr, td.exp.err)
 		}

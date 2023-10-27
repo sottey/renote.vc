@@ -17,8 +17,8 @@ import (
 // viewCommand is a command model which used to view metadata of note.
 var viewCommand = &cobra.Command{
 	Use:     "view",
-	Aliases: []string{"show", "read"},
-	Short:   "View full note data",
+	Aliases: []string{"v", "o", "show", "read", "open"},
+	Short:   "View note data",
 	Run:     runViewCommand,
 }
 

@@ -63,7 +63,7 @@ func runPushCommand(cmd *cobra.Command, args []string) {
 	loading.Stop()
 
 	if len(pushedNodes) == 0 && len(errs) == 0 {
-		pkg.Print("Everything up-to-date", color.FgHiGreen)
+		pkg.Print("Everything up to date", color.FgHiGreen)
 		return
 	}
 

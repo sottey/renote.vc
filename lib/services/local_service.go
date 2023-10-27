@@ -22,9 +22,9 @@ import (
 // Which is connected to local storage of users machine.
 // Uses ~renotevc/ as main root folder for notes and configuration files.
 type LocalService struct {
-	Stdargs   models.StdArgs
-	NotyaPath string
-	Config    models.Settings
+	Stdargs      models.StdArgs
+	RenotevcPath string
+	Config       models.Settings
 }
 
 // Set [LocalService] as [ServiceRepo].
@@ -63,7 +63,7 @@ func (l *LocalService) Type() string {
 
 // Path returns current service's base working directory.
 func (l *LocalService) Path() (string, string) {
-	return l.NotyaPath, l.Config.NotesPath
+	return l.RenotevcPath, l.Config.NotesPath
 }
 
 // StateConfig returns current configuration of state i.e [l.Config].
@@ -73,16 +73,16 @@ func (l *LocalService) StateConfig() models.Settings {
 
 // Init creates renotevc working directory into current machine.
 func (l *LocalService) Init(settings *models.Settings) error {
-	renotevcPath, err := pkg.NotyaPWD(l.Config)
+	renotevcPath, err := pkg.RenotevcPWD(l.Config)
 	if err != nil {
 		pkg.Alert(pkg.ErrorL, err.Error())
 		return err
 	}
 
-	l.NotyaPath = *renotevcPath + "/"
-	settingsPath := l.NotyaPath + models.SettingsName
+	l.RenotevcPath = *renotevcPath + "/"
+	settingsPath := l.RenotevcPath + models.SettingsName
 
-	renotevcDirSetted := pkg.FileExists(l.NotyaPath)
+	renotevcDirSetted := pkg.FileExists(l.RenotevcPath)
 	settingsSetted := pkg.FileExists(settingsPath)
 
 	// If settings exists, set it to state.
@@ -108,7 +108,7 @@ func (l *LocalService) Init(settings *models.Settings) error {
 	}
 
 	// Initialize settings file.
-	newSettings := models.InitSettings(l.NotyaPath)
+	newSettings := models.InitSettings(l.RenotevcPath)
 	if settingsError := l.WriteSettings(newSettings); err != nil {
 		return settingsError
 	}
@@ -122,9 +122,9 @@ func (l *LocalService) Init(settings *models.Settings) error {
 func (l *LocalService) Settings(p *string) (*models.Settings, error) {
 	var settingsPath string
 	if p != nil && len(*p) != 0 {
-		settingsPath, _ = l.GeneratePath(l.NotyaPath, models.Node{Title: *p})
+		settingsPath, _ = l.GeneratePath(l.RenotevcPath, models.Node{Title: *p})
 	} else {
-		settingsPath = l.NotyaPath + models.SettingsName
+		settingsPath = l.RenotevcPath + models.SettingsName
 	}
 
 	data, err := pkg.ReadBody(settingsPath)
@@ -138,7 +138,7 @@ func (l *LocalService) Settings(p *string) (*models.Settings, error) {
 
 // WriteSettings overwrites settings data by given settings model.
 func (l *LocalService) WriteSettings(settings models.Settings) error {
-	settingsPath := l.NotyaPath + models.SettingsName
+	settingsPath := l.RenotevcPath + models.SettingsName
 
 	if !settings.IsValid() {
 		return assets.ErrInvalidSettingsData
@@ -166,9 +166,9 @@ func (l *LocalService) IsNodeExists(node models.Node) (bool, error) {
 
 // OpenSettings opens given settings via editor.
 func (l *LocalService) OpenSettings(settings models.Settings) error {
-	path := l.NotyaPath + models.SettingsName
+	path := l.RenotevcPath + models.SettingsName
 	if len(settings.ID) > 0 {
-		path = l.NotyaPath + settings.ID
+		path = l.RenotevcPath + settings.ID
 	}
 
 	settingsNode := models.Node{Path: map[string]string{l.Type(): path}}

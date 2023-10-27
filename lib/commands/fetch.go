@@ -20,7 +20,7 @@ import (
 
 var fetchCommand = &cobra.Command{
 	Use:     "fetch",
-	Aliases: []string{"pull"},
+	Aliases: []string{"f", "pull"},
 	Short:   "Fetch creates a clone of each node from [Y] service to [X] service",
 	Run:     runFetchCommand,
 }

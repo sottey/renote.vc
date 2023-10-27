@@ -21,7 +21,7 @@ import (
 // to edit it should include running editSettingsCommand.
 var settingsCommand = &cobra.Command{
 	Use:     "settings",
-	Aliases: []string{"config"},
+	Aliases: []string{"s", "config"},
 	Short:   "Manage renotevc settings",
 	Run:     runSettingsCommand,
 }
@@ -30,7 +30,7 @@ var settingsCommand = &cobra.Command{
 // that opens the setting (configuration) file with your current editor.
 var editSettingsCommand = &cobra.Command{
 	Use:     "edit",
-	Aliases: []string{"-e"},
+	Aliases: []string{"e"},
 	Short:   "Opens the configuration file of renotevc with your default editor",
 	Run:     runEditSettingsCommand,
 }

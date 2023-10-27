@@ -65,7 +65,7 @@ func initCommands() {
 	initSettingsCommand()
 	initCreateCommand()
 	initMkdirCommand()
-	initRemoveCommand()
+	initDeleteCommand()
 	initViewCommand()
 	initEditCommand()
 	initRenameCommand()

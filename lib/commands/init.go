@@ -14,10 +14,9 @@ import (
 
 // initCommand is a setup command of renotevc.
 var initCommand = &cobra.Command{
-	Use:     "init",
-	Aliases: []string{"setup"},
-	Short:   "Initialize application related files/folders",
-	Run:     runInitCommand,
+	Use:   "init",
+	Short: "Initialize application related files/folders",
+	Run:   runInitCommand,
 }
 
 // initSetupCommand adds initCommand to main application command.

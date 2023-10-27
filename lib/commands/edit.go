@@ -19,8 +19,8 @@ import (
 // editCommand is a command model which used to overwrite body of notes or files.
 var editCommand = &cobra.Command{
 	Use:     "edit",
-	Aliases: []string{"overwrite", "update"},
-	Short:   "Edit/Update note data",
+	Aliases: []string{"e"},
+	Short:   "Edit note data",
 	Run:     runEditCommand,
 }
 

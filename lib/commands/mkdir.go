@@ -20,7 +20,7 @@ import (
 var mkdirCommand = &cobra.Command{
 	Use:     "mkdir",
 	Aliases: []string{"md"},
-	Short:   "Create new working directory(folder)",
+	Short:   "Create new directory (folder)",
 	Run:     runMkdirCommand,
 }
 

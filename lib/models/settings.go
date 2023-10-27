@@ -20,7 +20,7 @@ const (
 	DefaultLocalPath = "renotevc"
 )
 
-// NotyaIgnoreFiles are those files that shouldn't
+// RenotevcIgnoreFiles are those files that shouldn't
 // be represented as note files.
 var RenotevcIgnoreFiles []string = []string{
 	SettingsName,

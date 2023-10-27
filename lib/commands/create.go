@@ -19,7 +19,7 @@ import (
 // createCommand is a command model that used to create new notes or files.
 var createCommand = &cobra.Command{
 	Use:     "create",
-	Aliases: []string{"new"},
+	Aliases: []string{"cr", "new", "add"},
 	Short:   "Create new node (file or folder)",
 	Run:     runCreateCommand,
 }

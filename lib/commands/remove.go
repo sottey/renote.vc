@@ -17,43 +17,43 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// removeCommand is a command model that used to remove a file or folder.
-var removeCommand = &cobra.Command{
-	Use:     "remove",
-	Aliases: []string{"rm", "delete"},
+// deleteCommand is a command model that used to delete a file or folder.
+var deleteCommand = &cobra.Command{
+	Use:     "delete",
+	Aliases: []string{"d", "rm"},
 	Short:   "Delete a renotevc element",
-	Run:     runRemoveCommand,
+	Run:     runDeleteCommand,
 }
 
-var removeAll bool
+var deleteAll bool
 
-// initRemoveCommand adds removeCommand to main application command.
-func initRemoveCommand() {
-	removeCommand.Flags().BoolVarP(
-		&removeAll, "all", "a", false,
-		"Remove all nodes (including child nodes)",
+// initdeleteCommand adds deleteCommand to main application command.
+func initDeleteCommand() {
+	deleteCommand.Flags().BoolVarP(
+		&deleteAll, "all", "a", false,
+		"delete all nodes (including child nodes)",
 	)
 
-	appCommand.AddCommand(removeCommand)
+	appCommand.AddCommand(deleteCommand)
 }
 
-// runRemoveCommand runs appropriate service commands to remove a file or folder.
-func runRemoveCommand(cmd *cobra.Command, args []string) {
+// rundeleteCommand runs appropriate service commands to delete a file or folder.
+func runDeleteCommand(cmd *cobra.Command, args []string) {
 	determineService()
 
-	if removeAll {
+	if deleteAll {
 		loading.Start()
 		clearedNodes, errs := service.ClearNodes()
 		loading.Stop()
 
-		pkg.PrintErrors("remove", errs)
-		pkg.Alert(pkg.SuccessL, fmt.Sprintf("Removed %v nodes", len(clearedNodes)))
+		pkg.PrintErrors("delete", errs)
+		pkg.Alert(pkg.SuccessL, fmt.Sprintf("deleted %v nodes", len(clearedNodes)))
 		return
 	}
 
 	// Take node title from arguments. If it's provided.
 	if len(args) > 0 && args[0] != "." {
-		removeAndFinish(models.Node{Title: args[0]})
+		deleteAndFinish(models.Node{Title: args[0]})
 		return
 	}
 
@@ -71,15 +71,15 @@ func runRemoveCommand(cmd *cobra.Command, args []string) {
 	// Ask for node selection.
 	var selected string
 	survey.AskOne(
-		assets.ChooseNodePrompt("node", "remove", nodeNames),
+		assets.ChooseNodePrompt("node", "delete", nodeNames),
 		&selected,
 	)
 
-	removeAndFinish(models.Node{Title: selected})
+	deleteAndFinish(models.Node{Title: selected})
 }
 
-// removeAndFinish removes given node and alerts success message if everything is OK.
-func removeAndFinish(node models.Node) {
+// deleteAndFinish deletes given node and alerts success message if everything is OK.
+func deleteAndFinish(node models.Node) {
 	if len(node.Title) == 0 {
 		os.Exit(-1)
 		return

@@ -19,7 +19,7 @@ import (
 // copyCommand is a command model which used to copy files.
 var copyCommand = &cobra.Command{
 	Use:     "copy",
-	Aliases: []string{"c"},
+	Aliases: []string{"c", "cp"},
 	Short:   "Copy file contents to clipboard",
 	Run:     runCopyCommand,
 }

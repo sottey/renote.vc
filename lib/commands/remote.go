@@ -29,17 +29,19 @@ var remoteCommand = &cobra.Command{
 // connectToRemoteCommand is a command model that used
 // to connect to new remote services.
 var connectToRemoteCommand = &cobra.Command{
-	Use:   "connect",
-	Short: "Configure a connection to a new remote service",
-	Run:   runRemoteConnectCommand,
+	Use:     "connect",
+	Aliases: []string{"c"},
+	Short:   "Configure a connection to a new remote service",
+	Run:     runRemoteConnectCommand,
 }
 
 // disconnectFromRemoteCommand is a command model that used
 // to disconnect from exiting remote services.
 var disconnectFromRemoteCommand = &cobra.Command{
-	Use:   "disconnect",
-	Short: "Remove a connection from remote service",
-	Run:   runRemoteDisconnectCommand,
+	Use:     "disconnect",
+	Aliases: []string{"d"},
+	Short:   "Remove a connection from remote service",
+	Run:     runRemoteDisconnectCommand,
 }
 
 // initRemoteCommand adds [remoteCommand] to the [appCommand].
@@ -131,7 +133,7 @@ func runRemoteDisconnectCommand(cmd *cobra.Command, args []string) {
 	loading.Stop()
 
 	if len(enabled) == 0 {
-		pkg.Alert(pkg.InfoL, "There are no active remote connections to disconnect from")
+		pkg.Alert(pkg.InfoL, "There are no active remote connections to disconnect")
 		return
 	}
 

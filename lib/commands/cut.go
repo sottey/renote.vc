@@ -17,9 +17,10 @@ import (
 )
 
 var cutCommand = &cobra.Command{
-	Use:   "cut",
-	Short: "Cut the file | copies the file and saves it's data to clipboard",
-	Run:   runCutCommand,
+	Use:     "cut",
+	Short:   "Remove the note and copy the file contents to the clipboard",
+	Aliases: []string{"x"},
+	Run:     runCutCommand,
 }
 
 func initCutCommand() {

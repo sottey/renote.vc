@@ -20,7 +20,7 @@ import (
 
 var migrateCommand = &cobra.Command{
 	Use:   "migrate",
-	Short: "Overwrites [Y] service's data with [X] service (in case of [X] service being current running service)",
+	Short: "Overwrites [Y] service's data with [X] service (where [X] service is the current running service)",
 	Run:   runMigrateCommand,
 }
 
