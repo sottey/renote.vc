@@ -1,16 +1,4 @@
-<p align="center">
-<img src="https://user-images.githubusercontent.com/59066341/136813272-a90861f4-1e6c-4a83-9a3b-18e01b99de34.png" width="400px">
-</p>
-
- <a href="https://github.com/sottey//blob/main/LICENSE">
-  <img src="https://img.shields.io/badge/License-Apache-red.svg" alt="License: MIT"/>
- </a>
- <a href="https://github.com/sottey//blob/main/CONTRIBUTING.md">
-  <img src="https://img.shields.io/badge/Contributing-welcome-yellow.svg" alt="Contribution Guide"/>
- </a>
- <a href="https://discord.gg/CtStkzrHV3">
-   <img src="https://img.shields.io/discord/914899238415130714?color=blue&label=Insolite Community&logo=discord" alt="Insolite Discord Invite link" />
- </a>   
+Renote.vc - All your notes... on the command line... 
 
 ---
 
