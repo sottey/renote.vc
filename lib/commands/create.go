@@ -10,9 +10,9 @@ import (
 	"os"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/insolite-dev/notya/assets"
-	"github.com/insolite-dev/notya/lib/models"
-	"github.com/insolite-dev/notya/pkg"
+	"github.com/sottey/renotevc/assets"
+	"github.com/sottey/renotevc/lib/models"
+	"github.com/sottey/renotevc/pkg"
 	"github.com/spf13/cobra"
 )
 
@@ -20,7 +20,7 @@ import (
 var createCommand = &cobra.Command{
 	Use:     "create",
 	Aliases: []string{"new"},
-	Short:   "Create new node(file/folder)",
+	Short:   "Create new node (file or folder)",
 	Run:     runCreateCommand,
 }
 

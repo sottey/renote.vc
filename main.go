@@ -5,7 +5,7 @@
 package main
 
 import (
-	"github.com/insolite-dev/notya/cmd"
+	"github.com/sottey/renotevc/cmd"
 )
 
 func main() {

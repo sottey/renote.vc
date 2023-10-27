@@ -12,17 +12,17 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/insolite-dev/notya/lib/models"
+	"github.com/sottey/renotevc/lib/models"
 )
 
-// NotyaPWD, generates path of notya's notes directory.
-// ╭───────────────────────╮   ╭────────╮   ╭────────────╮
-// │ ~/user-home-directory │ + │ /notya │ = │ local path │
-// ╰───────────────────────╯   ╰────────╯   ╰────────────╯
+// NotyaPWD, generates path of renotevc's notes directory.
+// ╭───────────────────────╮   ╭───────────╮   ╭────────────╮
+// │ ~/user-home-directory │ + │ /renotevc │ = │ local path │
+// ╰───────────────────────╯   ╰───────────╯   ╰────────────╯
 func NotyaPWD(settings models.Settings) (*string, error) {
 	path := settings.NotesPath
 
-	// Initialize default notya path.
+	// Initialize default renotevc path.
 	if len(path) == 0 || path == models.DefaultLocalPath {
 		uhd, err := os.UserHomeDir()
 		if err != nil {

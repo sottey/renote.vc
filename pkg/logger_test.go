@@ -13,9 +13,9 @@ import (
 
 	"github.com/briandowns/spinner"
 	"github.com/fatih/color"
-	"github.com/insolite-dev/notya/lib/models"
-	"github.com/insolite-dev/notya/lib/services"
-	"github.com/insolite-dev/notya/pkg"
+	"github.com/sottey/renotevc/lib/models"
+	"github.com/sottey/renotevc/lib/services"
+	"github.com/sottey/renotevc/pkg"
 )
 
 func TestAlert(t *testing.T) {

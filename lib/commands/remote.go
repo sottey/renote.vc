@@ -12,10 +12,10 @@ import (
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/fatih/color"
-	"github.com/insolite-dev/notya/assets"
-	"github.com/insolite-dev/notya/lib/models"
-	"github.com/insolite-dev/notya/lib/services"
-	"github.com/insolite-dev/notya/pkg"
+	"github.com/sottey/renotevc/assets"
+	"github.com/sottey/renotevc/lib/models"
+	"github.com/sottey/renotevc/lib/services"
+	"github.com/sottey/renotevc/pkg"
 	"github.com/spf13/cobra"
 )
 
@@ -30,7 +30,7 @@ var remoteCommand = &cobra.Command{
 // to connect to new remote services.
 var connectToRemoteCommand = &cobra.Command{
 	Use:   "connect",
-	Short: "Configure a connection to new remote service",
+	Short: "Configure a connection to a new remote service",
 	Run:   runRemoteConnectCommand,
 }
 
@@ -38,7 +38,7 @@ var connectToRemoteCommand = &cobra.Command{
 // to disconnect from exiting remote services.
 var disconnectFromRemoteCommand = &cobra.Command{
 	Use:   "disconnect",
-	Short: "Remove connection from concrete remote service",
+	Short: "Remove a connection from remote service",
 	Run:   runRemoteDisconnectCommand,
 }
 
@@ -64,7 +64,7 @@ func runRemoteCommand(cmd *cobra.Command, args []string) {
 	}
 
 	if len(disabled) > 0 {
-		pkg.Print("\nUnreachable Services:", color.FgYellow)
+		pkg.Print("\nDisconnected Services:", color.FgYellow)
 		pkg.PrintServices(pkg.NOCOLOR, disabled)
 	}
 }

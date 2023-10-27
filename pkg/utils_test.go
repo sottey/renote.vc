@@ -11,8 +11,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/insolite-dev/notya/lib/models"
-	"github.com/insolite-dev/notya/pkg"
+	"github.com/sottey/renotevc/lib/models"
+	"github.com/sottey/renotevc/pkg"
 )
 
 func TestNotyaPWD(t *testing.T) {
@@ -29,13 +29,13 @@ func TestNotyaPWD(t *testing.T) {
 		exp      expected
 	}{
 		{
-			testName: "should get right notya notes path",
-			exp:      expected{currentHomeDir + "/notya", nil},
+			testName: "should get right renotevc notes path",
+			exp:      expected{currentHomeDir + "/renotevc", nil},
 		},
 	}
 
 	for _, td := range tests {
-		gotRes, gotErr := pkg.NotyaPWD(models.Settings{NotesPath: "notya"})
+		gotRes, gotErr := pkg.NotyaPWD(models.Settings{NotesPath: "renotevc"})
 		if gotErr != td.exp.err {
 			t.Errorf("Path err sum was different: Got: %v | Want: %v", gotErr, td.exp.err)
 		}
@@ -245,7 +245,7 @@ func TestOpenViaEditor(t *testing.T) {
 			ua: utilArgs{
 				filename: "test_file.txt",
 				stdargs:  models.StdArgs{},
-				settings: models.InitSettings("notya"),
+				settings: models.InitSettings("renotevc"),
 				deleteFileFunc: func(filename string) {
 					pkg.Delete(filename)
 				},
@@ -326,16 +326,16 @@ func TestNormalizePath(t *testing.T) {
 		expected string
 	}{
 		{
-			input:    "//Users///theiskaa//notya//notes///",
-			expected: "/Users/theiskaa/notya/notes/",
+			input:    "//Users///theiskaa//renotevc//notes///",
+			expected: "/Users/theiskaa/renotevc/notes/",
 		},
 		{
-			input:    "//Users/ /theiskaa/notya//",
-			expected: "/Users/theiskaa/notya/",
+			input:    "//Users/ /theiskaa/renotevc//",
+			expected: "/Users/theiskaa/renotevc/",
 		},
 		{
-			input:    "/Users/theiskaa/notya/notes",
-			expected: "/Users/theiskaa/notya/notes/",
+			input:    "/Users/theiskaa/renotevc/notes",
+			expected: "/Users/theiskaa/renotevc/notes/",
 		},
 	}
 

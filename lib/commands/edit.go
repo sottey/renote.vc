@@ -10,9 +10,9 @@ import (
 	"os"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/insolite-dev/notya/assets"
-	"github.com/insolite-dev/notya/lib/models"
-	"github.com/insolite-dev/notya/pkg"
+	"github.com/sottey/renotevc/assets"
+	"github.com/sottey/renotevc/lib/models"
+	"github.com/sottey/renotevc/pkg"
 	"github.com/spf13/cobra"
 )
 
@@ -41,7 +41,7 @@ func runEditCommand(cmd *cobra.Command, args []string) {
 
 	// Generate all node names.
 	loading.Start()
-	_, nodeNames, err := service.GetAll("", "file", models.NotyaIgnoreFiles)
+	_, nodeNames, err := service.GetAll("", "file", models.RenotevcIgnoreFiles)
 	loading.Stop()
 	if err != nil {
 		pkg.Alert(pkg.ErrorL, err.Error())

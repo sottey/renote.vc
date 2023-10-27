@@ -10,9 +10,9 @@ import (
 	"os"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/insolite-dev/notya/assets"
-	"github.com/insolite-dev/notya/lib/models"
-	"github.com/insolite-dev/notya/pkg"
+	"github.com/sottey/renotevc/assets"
+	"github.com/sottey/renotevc/lib/models"
+	"github.com/sottey/renotevc/pkg"
 	"github.com/spf13/cobra"
 )
 
@@ -20,7 +20,7 @@ import (
 var renameCommand = &cobra.Command{
 	Use:     "rename",
 	Aliases: []string{"rn", "mv"},
-	Short:   "Change/Update node's name",
+	Short:   "Rename a node",
 	Run:     runRenameCommand,
 }
 
@@ -48,7 +48,7 @@ func runRenameCommand(cmd *cobra.Command, args []string) {
 	loading.Start()
 
 	// Generate array of all node names.
-	_, nodeNames, err := service.GetAll("", "", models.NotyaIgnoreFiles)
+	_, nodeNames, err := service.GetAll("", "", models.RenotevcIgnoreFiles)
 
 	loading.Stop()
 

@@ -9,7 +9,7 @@ package services_test
 import (
 	"testing"
 
-	"github.com/insolite-dev/notya/lib/services"
+	"github.com/sottey/renotevc/lib/services"
 )
 
 func TestServiceTypeToStr(t *testing.T) {

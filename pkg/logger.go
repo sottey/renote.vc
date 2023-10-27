@@ -12,8 +12,8 @@ import (
 
 	"github.com/briandowns/spinner"
 	"github.com/fatih/color"
-	"github.com/insolite-dev/notya/lib/models"
 	"github.com/mattn/go-colorable"
+	"github.com/sottey/renotevc/lib/models"
 )
 
 var (
@@ -175,7 +175,7 @@ func PrintErrors(act string, errs []error) {
 	}
 }
 
-// Spinner generates static style notya spinner.
+// Spinner generates static style renotevc spinner.
 func Spinner() *spinner.Spinner {
 	s := spinner.New(spinner.CharSets[11], 100*time.Millisecond)
 	s.Color("yellow")

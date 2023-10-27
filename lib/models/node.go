@@ -31,7 +31,8 @@ var (
 type Node struct {
 	// Type represents the exact type of current node.
 	// It can be `file` or `folder`.
-	Type NodeType `json:"typ"`
+	//SCOCHANGE: fixed typo
+	Type NodeType `json:"type"`
 
 	// Title is the name(not path) of "current" node.
 	Title string `json:"title"`
@@ -88,7 +89,7 @@ func (n *Node) RebuildParent(parentCurrent, parentNew Node, service string, s Se
 	split := SplitPath(strings.Replace(n.Title, parentCurrent.Title, parentNew.Title, 1))
 	n.Title = CollectPath(split)
 
-	path := "notya"
+	path := "renotevc"
 	if len(s.FirebaseCollection) != 0 {
 		path = s.FirebaseCollection
 	} else if len(s.Name) != 0 {

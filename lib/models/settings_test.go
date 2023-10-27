@@ -9,7 +9,7 @@ package models_test
 import (
 	"testing"
 
-	"github.com/insolite-dev/notya/lib/models"
+	"github.com/sottey/renotevc/lib/models"
 )
 
 func TestInitSettings(t *testing.T) {
@@ -25,7 +25,7 @@ func TestInitSettings(t *testing.T) {
 
 	for _, td := range tests {
 		t.Run(td.testname, func(t *testing.T) {
-			got := models.InitSettings("notya")
+			got := models.InitSettings("renotevc")
 
 			if got.Editor != td.expected.Editor || got.NotesPath != td.expected.NotesPath {
 				t.Errorf("InitSettings's sum was different: Want: %v | Got: %v", got, td.expected)
@@ -67,18 +67,18 @@ func TestToJSON(t *testing.T) {
 			model: models.Settings{
 				Name:               models.DefaultAppName,
 				Editor:             models.DefaultEditor,
-				NotesPath:          "~notya",
-				FirebaseProjectID:  "notya",
-				FirebaseAccountKey: "~notya/key.json",
-				FirebaseCollection: "notya-notes",
+				NotesPath:          "~renotevc",
+				FirebaseProjectID:  "renotevc",
+				FirebaseAccountKey: "~renotevc/key.json",
+				FirebaseCollection: "renotevc-notes",
 			},
 			expected: map[string]interface{}{
 				"name":             models.DefaultAppName,
 				"editor":           models.DefaultEditor,
-				"notes_path":       "~notya",
-				"fire_project_id":  "notya",
-				"fire_account_key": "~notya/key.json",
-				"fire_collection":  "notya-notes",
+				"notes_path":       "~renotevc",
+				"fire_project_id":  "renotevc",
+				"fire_account_key": "~renotevc/key.json",
+				"fire_collection":  "renotevc-notes",
 			},
 		},
 	}
@@ -126,15 +126,15 @@ func TestFirePath(t *testing.T) {
 	}{
 		{
 			model:    models.Settings{},
-			expected: "notya",
+			expected: "renotevc",
 		},
 		{
-			model:    models.Settings{Name: "notya"},
-			expected: "notya",
+			model:    models.Settings{Name: "renotevc"},
+			expected: "renotevc",
 		},
 		{
-			model:    models.Settings{FirebaseCollection: "notya-notes", Name: "notya"},
-			expected: "notya-notes",
+			model:    models.Settings{FirebaseCollection: "renotevc-notes", Name: "renotevc"},
+			expected: "renotevc-notes",
 		},
 	}
 

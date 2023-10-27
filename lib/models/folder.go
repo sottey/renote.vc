@@ -10,14 +10,14 @@ package models
 //
 //	EXAMPLE:
 //
-// ╭───────────────╮
-// │ ~/notya-path/ │
-// │───────────────╯
+// ╭──────────────────╮
+// │ ~/renotevc-path/ │
+// │──────────────────╯
 // │─ new_note.txt
 // │─ todo/   ◀──── Sub directory of main notes folder.
 // │  │── today.md
 // │  │── tomorrow.md
-// │  ╰── insolite-notya/  ◀── Sub directory of "todo" folder.
+// │  ╰── sottey-renotevc/  ◀── Sub directory of "todo" folder.
 // │      │── issues.txt
 // │      ╰── features.txt
 // │─ ted-talks.tx

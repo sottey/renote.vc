@@ -9,7 +9,7 @@ package cmd_test
 import (
 	"testing"
 
-	"github.com/insolite-dev/notya/cmd"
+	"github.com/sottey/renotevc/cmd"
 )
 
 func TestRunApp(t *testing.T) {

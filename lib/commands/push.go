@@ -12,15 +12,15 @@ import (
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/fatih/color"
-	"github.com/insolite-dev/notya/assets"
-	"github.com/insolite-dev/notya/lib/services"
-	"github.com/insolite-dev/notya/pkg"
+	"github.com/sottey/renotevc/assets"
+	"github.com/sottey/renotevc/lib/services"
+	"github.com/sottey/renotevc/pkg"
 	"github.com/spf13/cobra"
 )
 
 var pushCommand = &cobra.Command{
 	Use:   "push",
-	Short: "Pushes all nodes from [X] service to [Y] service(in case, if nodes doesn't exists in [Y] service)",
+	Short: "Pushes all nodes from [X] service to [Y] service (if nodes don't exist in [Y] service)",
 	Run:   runPushCommand,
 }
 

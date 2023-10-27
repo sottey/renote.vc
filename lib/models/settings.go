@@ -14,15 +14,15 @@ import (
 
 // Constant values of settings.
 const (
-	DefaultAppName   = "notya"
+	DefaultAppName   = "renotevc"
 	SettingsName     = ".settings.json"
 	DefaultEditor    = "vi"
-	DefaultLocalPath = "notya"
+	DefaultLocalPath = "renotevc"
 )
 
 // NotyaIgnoreFiles are those files that shouldn't
 // be represented as note files.
-var NotyaIgnoreFiles []string = []string{
+var RenotevcIgnoreFiles []string = []string{
 	SettingsName,
 	".DS_Store", // Darwin related.
 	".git",
@@ -33,19 +33,19 @@ var NotyaIgnoreFiles []string = []string{
 //	Example:
 //
 // ╭────────────────────────────────────────────────────╮
-// │ Name: notya                                        │
+// │ Name: renotevc                                     │
 // │ Editor: vi                                         │
-// │ Notes Path: /User/random-user/notya/notes          │
-// │ Firebase Project ID: notya-98tf3                   │
-// │ Firebase Account Key: /User/.../notya/key.json     │
-// │ Firebase Collection: notya-notes                   │
+// │ Notes Path: /User/random-user/renotevc/notes       │
+// │ Firebase Project ID: renotevc-98tf3                │
+// │ Firebase Account Key: /User/.../renotevc/key.json  │
+// │ Firebase Collection: renotevc-notes                │
 // ╰────────────────────────────────────────────────────╯
 type Settings struct {
 	// Alert: development related field, shouldn't be used in production.
 	ID string `json:",omitempty"`
 
-	// The custom name of your notya application.
-	Name string `json:"name" default:"notya"`
+	// The custom name of your renotevc application.
+	Name string `json:"name" default:"renotevc"`
 
 	// Editor app of application.
 	// Could be:
@@ -58,8 +58,8 @@ type Settings struct {
 	//  like: `code .` or `nvim .`.
 	Editor string `json:"editor" default:"vi"`
 
-	// Local "notes" folder path for notes, independently from [~/notya/] folder.
-	// Must be given full path, like: "./User/john-doe/.../my-notya-notes/"
+	// Local "notes" folder path for notes, independently from [~/renotevc/] folder.
+	// Must be given full path, like: "./User/john-doe/.../my-renotevc-notes/"
 	//
 	// Does same job as [FirebaseCollection] for local env.
 	NotesPath string `json:"notes_path" mapstructure:"notes_path" survey:"notes_path"`

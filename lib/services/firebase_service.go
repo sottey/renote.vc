@@ -16,10 +16,10 @@ import (
 	firebase "firebase.google.com/go"
 	"firebase.google.com/go/auth"
 	"github.com/atotto/clipboard"
-	"github.com/insolite-dev/notya/assets"
-	"github.com/insolite-dev/notya/lib/models"
-	"github.com/insolite-dev/notya/pkg"
 	"github.com/mitchellh/mapstructure"
+	"github.com/sottey/renotevc/assets"
+	"github.com/sottey/renotevc/lib/models"
+	"github.com/sottey/renotevc/pkg"
 	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"
 	"google.golang.org/grpc/codes"
@@ -58,7 +58,7 @@ func (s *FirebaseService) StateConfig() models.Settings {
 	return s.Config
 }
 
-// notyaCollection generates the main firestore collection reference.
+// renotevcCollection generates the main firestore collection reference.
 func (s *FirebaseService) NotyaCollection() firestore.CollectionRef {
 	return *s.FireStore.Collection(s.Config.FirePath())
 }
@@ -71,7 +71,7 @@ func (s *FirebaseService) GeneratePath(base *firestore.CollectionRef, n models.N
 	collection := s.NotyaCollection()
 	if base != nil {
 		// if the base collection is provided, which is different than actual
-		// provided main-base connection of notya, we have to set it to the value.
+		// provided main-base connection of renotevc, we have to set it to the value.
 		collection = *base
 	}
 
@@ -148,7 +148,7 @@ func (s *FirebaseService) Path() (string, string) {
 	return s.Config.FirePath(), s.Config.FirebaseCollection
 }
 
-// Init creates notya working directory into current machine.
+// Init creates renotevc working directory into current machine.
 func (s *FirebaseService) Init(settings *models.Settings) error {
 	if settings != nil {
 		s.Config = *settings
@@ -162,12 +162,12 @@ func (s *FirebaseService) Init(settings *models.Settings) error {
 	}
 
 	if len(s.Config.FirebaseProjectID) == 0 {
-		return assets.InvalidFirebaseProjectID
+		return assets.ErrInvalidFirebaseProjectID
 	}
 
 	// Check validness of firebase account key.
 	if !pkg.FileExists(s.Config.FirebaseAccountKey) || len(s.Config.FirebaseAccountKey) == 0 {
-		return assets.FirebaseServiceKeyNotExists
+		return assets.ErrFirebaseServiceKeyNotExists
 	}
 
 	if len(s.Config.FirebaseCollection) == 0 {
@@ -240,7 +240,7 @@ func (s *FirebaseService) Settings(p *string) (*models.Settings, error) {
 // WriteSettings overwrites settings data by given settings model.
 func (s *FirebaseService) WriteSettings(settings models.Settings) error {
 	if !settings.IsValid() {
-		return assets.InvalidSettingsData
+		return assets.ErrInvalidSettingsData
 	}
 
 	collection := s.FireStore.Collection(s.Config.Name)
@@ -251,7 +251,7 @@ func (s *FirebaseService) WriteSettings(settings models.Settings) error {
 	return nil
 }
 
-// IsNodeExists checks if an element(given node) exists at notya collection or not.
+// IsNodeExists checks if an element(given node) exists at renotevc collection or not.
 func (s *FirebaseService) IsNodeExists(node models.Node) (bool, error) {
 	doc, _ := s.GenerateDoc(nil, node)
 	if _, err := doc.Get(s.Ctx); err != nil {
@@ -372,7 +372,7 @@ func (s *FirebaseService) Rename(editNode models.EditNode) error {
 	}
 
 	if editNode.Current.Title == editNode.New.Title {
-		return assets.SameTitles
+		return assets.ErrSameTitles
 	}
 
 	updated := editNode.New
@@ -442,8 +442,8 @@ func (s *FirebaseService) mv(editNode models.EditNode) error {
 // ClearNodes removes all nodes from collection.
 // TODO: improve the speed of clearing
 func (s *FirebaseService) ClearNodes() ([]models.Node, []error) {
-	nodes, _, err := s.GetAll("", "", models.NotyaIgnoreFiles)
-	if err != nil && err.Error() != assets.EmptyWorkingDirectory.Error() {
+	nodes, _, err := s.GetAll("", "", models.RenotevcIgnoreFiles)
+	if err != nil && err.Error() != assets.ErrEmptyWorkingDirectory.Error() {
 		return nil, []error{err}
 	}
 
@@ -670,7 +670,7 @@ func (s *FirebaseService) Mkdir(dir models.Folder) (*models.Folder, error) {
 // MoveNote moves all notes from "CURRENT" firebase collection
 // to new collection(given by settings parameter).
 func (s *FirebaseService) MoveNotes(settings models.Settings) error {
-	nodes, _, err := s.GetAll("", "", models.NotyaIgnoreFiles)
+	nodes, _, err := s.GetAll("", "", models.RenotevcIgnoreFiles)
 	if err != nil {
 		return err
 	}
@@ -696,7 +696,7 @@ func (s *FirebaseService) MoveNotes(settings models.Settings) error {
 // Fetch creates a clone of nodes(that doesn't exists on
 // [s](firebase-service)) from given [remote] service.
 func (s *FirebaseService) Fetch(remote ServiceRepo) ([]models.Node, []error) {
-	nodes, _, err := remote.GetAll("", "", models.NotyaIgnoreFiles)
+	nodes, _, err := remote.GetAll("", "", models.RenotevcIgnoreFiles)
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -752,7 +752,7 @@ func (s *FirebaseService) Fetch(remote ServiceRepo) ([]models.Node, []error) {
 
 // Push uploads nodes(that doesn't exists on given remote) from [s](current) to given [remote].
 func (s *FirebaseService) Push(remote ServiceRepo) ([]models.Node, []error) {
-	nodes, _, err := s.GetAll("", "", models.NotyaIgnoreFiles)
+	nodes, _, err := s.GetAll("", "", models.RenotevcIgnoreFiles)
 	if err != nil {
 		return nil, []error{err}
 	}

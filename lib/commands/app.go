@@ -9,10 +9,9 @@ package commands
 import (
 	"os"
 
-	"github.com/insolite-dev/notya/assets"
-	"github.com/insolite-dev/notya/lib/models"
-	"github.com/insolite-dev/notya/lib/services"
-	"github.com/insolite-dev/notya/pkg"
+	"github.com/sottey/renotevc/lib/models"
+	"github.com/sottey/renotevc/lib/services"
+	"github.com/sottey/renotevc/pkg"
 	"github.com/spf13/cobra"
 )
 
@@ -50,19 +49,16 @@ var firebaseF bool
 
 // appCommand is the root command of application and genesis of all sub-commands.
 var appCommand = &cobra.Command{
-	Use:     "notya",
+	Use:     "renotevc",
 	Version: pkg.Version,
-	Long: assets.GenerateBanner(
-		assets.MinimalisticBanner,
-		assets.ShortSlog,
-	),
+	Short:   "Notes that are fast to create and faster to find...",
 }
 
 // initCommands initializes all sub-commands of application.
 func initCommands() {
 	appCommand.PersistentFlags().BoolVarP(
 		&firebaseF, "firebase", "f", false,
-		"Run commands base on firebase service",
+		"Run commands using the firebase service",
 	)
 
 	initSetupCommand()

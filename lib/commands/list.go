@@ -7,8 +7,8 @@
 package commands
 
 import (
-	"github.com/insolite-dev/notya/lib/models"
-	"github.com/insolite-dev/notya/pkg"
+	"github.com/sottey/renotevc/lib/models"
+	"github.com/sottey/renotevc/pkg"
 	"github.com/spf13/cobra"
 )
 
@@ -16,7 +16,7 @@ import (
 var listCommand = &cobra.Command{
 	Use:     "list",
 	Aliases: []string{"ls"},
-	Short:   "List all notya nodes(files & folders)",
+	Short:   "List all renotevc nodes (files and folders)",
 	Run:     runListCommand,
 }
 
@@ -37,7 +37,7 @@ func runListCommand(cmd *cobra.Command, args []string) {
 	loading.Start()
 
 	// Generate a list of nodes.
-	nodes, _, err := service.GetAll(additional, "", models.NotyaIgnoreFiles)
+	nodes, _, err := service.GetAll(additional, "", models.RenotevcIgnoreFiles)
 
 	loading.Stop()
 	if err != nil {

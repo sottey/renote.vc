@@ -10,15 +10,15 @@ import (
 	"os"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/insolite-dev/notya/assets"
-	"github.com/insolite-dev/notya/lib/models"
-	"github.com/insolite-dev/notya/pkg"
+	"github.com/sottey/renotevc/assets"
+	"github.com/sottey/renotevc/lib/models"
+	"github.com/sottey/renotevc/pkg"
 	"github.com/spf13/cobra"
 )
 
 var cutCommand = &cobra.Command{
 	Use:   "cut",
-	Short: "Cut the file | copies the file and saves it data to clipboard",
+	Short: "Cut the file | copies the file and saves it's data to clipboard",
 	Run:   runCutCommand,
 }
 
@@ -37,7 +37,7 @@ func runCutCommand(cmd *cobra.Command, args []string) {
 
 	loading.Start()
 	// Generate array of all node names.
-	_, nodeNames, err := service.GetAll("", "file", models.NotyaIgnoreFiles)
+	_, nodeNames, err := service.GetAll("", "file", models.RenotevcIgnoreFiles)
 	loading.Stop()
 	if err != nil {
 		pkg.Alert(pkg.ErrorL, err.Error())

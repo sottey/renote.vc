@@ -49,8 +49,8 @@ var MkdirPromptQuestion = []*survey.Question{
 
 // OpenViaEditorPromt is a confirm prompt for editor editing.
 var OpenViaEditorPromt = &survey.Confirm{
-	Message: "Wanna open with editor?",
-	Help:    "Do you want to open note with your editor?",
+	Message: "Open with editor?",
+	Help:    "Open note using default editor?",
 	Default: false,
 }
 
@@ -62,7 +62,7 @@ func NewNamePrompt(d string) *survey.Input {
 // MoveNotesPrompt is a confirm prompt for setting's move-note functionality.
 var MoveNotesPrompt = &survey.Confirm{
 	Message: "Move notes",
-	Help:    "Do you wanna move old notes to new path?",
+	Help:    "Move old notes to new path?",
 	Default: false,
 }
 
@@ -82,7 +82,7 @@ var FirebaseRemoteConnectPromptQuestion = []*survey.Question{
 		Name: "fire_account_key",
 		Prompt: &survey.Input{
 			Message: "Firebase Account Key",
-			Help:    "The Firebase Admin SDK private key file path. Must be given a full path, like: /Users/john-doe/notya/account_key.json.",
+			Help:    "The Firebase Admin SDK private key file path. Must be given a full path. Example: /Users/john-doe/renotevc/account_key.json.",
 		},
 		Validate: survey.MinLength(5),
 	},
@@ -90,7 +90,7 @@ var FirebaseRemoteConnectPromptQuestion = []*survey.Question{
 		Name: "fire_collection",
 		Prompt: &survey.Input{
 			Message: "Firebase Collection",
-			Help:    "A name of collection for notes, from your firebase project's firestore.",
+			Help:    "The name of thecollection for notes, from your firebase project's filestore.",
 		},
 		Validate: survey.MinLength(1),
 	},

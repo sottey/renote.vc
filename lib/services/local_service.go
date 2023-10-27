@@ -13,14 +13,14 @@ import (
 	"strings"
 
 	"github.com/atotto/clipboard"
-	"github.com/insolite-dev/notya/assets"
-	"github.com/insolite-dev/notya/lib/models"
-	"github.com/insolite-dev/notya/pkg"
+	"github.com/sottey/renotevc/assets"
+	"github.com/sottey/renotevc/lib/models"
+	"github.com/sottey/renotevc/pkg"
 )
 
 // LocalService is a class implementation of service repo.
 // Which is connected to local storage of users machine.
-// Uses ~notya/ as main root folder for notes and configuration files.
+// Uses ~renotevc/ as main root folder for notes and configuration files.
 type LocalService struct {
 	Stdargs   models.StdArgs
 	NotyaPath string
@@ -71,18 +71,18 @@ func (l *LocalService) StateConfig() models.Settings {
 	return l.Config
 }
 
-// Init creates notya working directory into current machine.
+// Init creates renotevc working directory into current machine.
 func (l *LocalService) Init(settings *models.Settings) error {
-	notyaPath, err := pkg.NotyaPWD(l.Config)
+	renotevcPath, err := pkg.NotyaPWD(l.Config)
 	if err != nil {
 		pkg.Alert(pkg.ErrorL, err.Error())
 		return err
 	}
 
-	l.NotyaPath = *notyaPath + "/"
+	l.NotyaPath = *renotevcPath + "/"
 	settingsPath := l.NotyaPath + models.SettingsName
 
-	notyaDirSetted := pkg.FileExists(l.NotyaPath)
+	renotevcDirSetted := pkg.FileExists(l.NotyaPath)
 	settingsSetted := pkg.FileExists(settingsPath)
 
 	// If settings exists, set it to state.
@@ -96,13 +96,13 @@ func (l *LocalService) Init(settings *models.Settings) error {
 	}
 
 	// Check if working directories already exists or not.
-	if notyaDirSetted && settingsSetted {
+	if renotevcDirSetted && settingsSetted {
 		return nil
 	}
 
-	// Create new notya working directory, if it not exists.
-	if !notyaDirSetted {
-		if creatingErr := pkg.NewFolder(*notyaPath); creatingErr != nil {
+	// Create new renotevc working directory, if it not exists.
+	if !renotevcDirSetted {
+		if creatingErr := pkg.NewFolder(*renotevcPath); creatingErr != nil {
 			return creatingErr
 		}
 	}
@@ -141,7 +141,7 @@ func (l *LocalService) WriteSettings(settings models.Settings) error {
 	settingsPath := l.NotyaPath + models.SettingsName
 
 	if !settings.IsValid() {
-		return assets.InvalidSettingsData
+		return assets.ErrInvalidSettingsData
 	}
 
 	if writeErr := pkg.WriteNote(settingsPath, settings.ToString()); writeErr != nil {
@@ -207,7 +207,7 @@ func (l *LocalService) Remove(node models.Node) error {
 	// Check for directory, to remove sub nodes of it.
 	if pkg.IsDir(nodePath) {
 		subNodes, _, err := l.GetAll(pkg.NormalizePath(node.Title), "", []string{})
-		if err != nil && err != assets.EmptyWorkingDirectory {
+		if err != nil && err != assets.ErrEmptyWorkingDirectory {
 			return err
 		}
 
@@ -243,7 +243,7 @@ func (l *LocalService) Rename(editNode models.EditNode) error {
 	}
 
 	if editNode.Current.Title == editNode.New.Title {
-		return assets.SameTitles
+		return assets.ErrSameTitles
 	}
 
 	if newExists, _ := l.IsNodeExists(editNode.New); newExists {
@@ -262,8 +262,8 @@ func (l *LocalService) Rename(editNode models.EditNode) error {
 
 // ClearNodes removes all nodes from local (including folders).
 func (l *LocalService) ClearNodes() ([]models.Node, []error) {
-	nodes, _, err := l.GetAll("", "", models.NotyaIgnoreFiles)
-	if err != nil && err.Error() != assets.EmptyWorkingDirectory.Error() {
+	nodes, _, err := l.GetAll("", "", models.RenotevcIgnoreFiles)
+	if err != nil && err.Error() != assets.ErrEmptyWorkingDirectory.Error() {
 		return nil, []error{err}
 	}
 
@@ -293,7 +293,7 @@ func (l *LocalService) ClearNodes() ([]models.Node, []error) {
 func (l *LocalService) Create(note models.Note) (*models.Note, error) {
 	notePath, err := l.GeneratePath(l.Config.NotesPath, note.ToNode())
 	if err != nil {
-		return nil, assets.InvalidPathForAct
+		return nil, assets.ErrInvalidPathForAct
 	}
 
 	if nodeExists, _ := l.IsNodeExists(note.ToNode()); nodeExists {
@@ -312,7 +312,7 @@ func (l *LocalService) Create(note models.Note) (*models.Note, error) {
 func (l *LocalService) View(note models.Note) (*models.Note, error) {
 	notePath, err := l.GeneratePath(l.Config.NotesPath, note.ToNode())
 	if err != nil {
-		return nil, assets.InvalidPathForAct
+		return nil, assets.ErrInvalidPathForAct
 	}
 
 	if nodeExists, _ := l.IsNodeExists(note.ToNode()); !nodeExists {
@@ -334,7 +334,7 @@ func (l *LocalService) View(note models.Note) (*models.Note, error) {
 func (l *LocalService) Edit(note models.Note) (*models.Note, error) {
 	notePath, err := l.GeneratePath(l.Config.NotesPath, note.ToNode())
 	if err != nil {
-		return nil, assets.InvalidPathForAct
+		return nil, assets.ErrInvalidPathForAct
 	}
 
 	if nodeExists, _ := l.IsNodeExists(note.ToNode()); !nodeExists {
@@ -386,7 +386,7 @@ func (l *LocalService) Mkdir(dir models.Folder) (*models.Folder, error) {
 
 	folderPath, err := l.GeneratePath(l.Config.NotesPath, dir.ToNode())
 	if err != nil {
-		return nil, assets.InvalidPathForAct
+		return nil, assets.ErrInvalidPathForAct
 	}
 
 	if string(folderPath[len(folderPath)-1]) != "/" {
@@ -419,7 +419,7 @@ func (l *LocalService) GetAll(additional, typ string, ignore []string) ([]models
 	}
 
 	if len(files) == 0 {
-		return nil, nil, assets.EmptyWorkingDirectory
+		return nil, nil, assets.ErrEmptyWorkingDirectory
 	}
 
 	// Generate node list via [files] array.
@@ -448,7 +448,7 @@ func (l *LocalService) GetAll(additional, typ string, ignore []string) ([]models
 
 // MoveNotes moves all notes from "CURRENT" path to new path(given by settings parameter).
 func (l *LocalService) MoveNotes(settings models.Settings) error {
-	nodes, _, err := l.GetAll("", "", models.NotyaIgnoreFiles)
+	nodes, _, err := l.GetAll("", "", models.RenotevcIgnoreFiles)
 	if err != nil {
 		return err
 	}
@@ -498,7 +498,7 @@ func (l *LocalService) MoveNotes(settings models.Settings) error {
 
 // Fetch creates a clone of nodes(that doesn't exists on [l](local-service)) from given [remote] service.
 func (l *LocalService) Fetch(remote ServiceRepo) ([]models.Node, []error) {
-	nodes, _, err := remote.GetAll("", "", models.NotyaIgnoreFiles)
+	nodes, _, err := remote.GetAll("", "", models.RenotevcIgnoreFiles)
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -560,7 +560,7 @@ func (l *LocalService) Fetch(remote ServiceRepo) ([]models.Node, []error) {
 
 // Push uploads nodes(that doesn't exists on given remote) from [l](current) to given [remote].
 func (l *LocalService) Push(remote ServiceRepo) ([]models.Node, []error) {
-	nodes, _, err := l.GetAll("", "", models.NotyaIgnoreFiles)
+	nodes, _, err := l.GetAll("", "", models.RenotevcIgnoreFiles)
 	if err != nil {
 		return nil, []error{err}
 	}

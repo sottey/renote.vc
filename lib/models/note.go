@@ -14,11 +14,11 @@ import (
 //
 //	Example:
 //
-// ╭─────────────────────────────────────────────╮
-// │ Title: new_note.txt                         │
-// │ Path: /User/random-user/notya/new_note.txt  │
-// │ Body: ... Note content here ...             │
-// ╰─────────────────────────────────────────────╯
+// ╭────────────────────────────────────────────────╮
+// │ Title: new_note.txt                            │
+// │ Path: /User/random-user/renotevc/new_note.txt  │
+// │ Body: ... Note content here ...                │
+// ╰────────────────────────────────────────────────╯
 type Note struct {
 	Title string            `json:"title"`
 	Path  map[string]string `json:"path"`

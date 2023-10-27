@@ -1,4 +1,4 @@
-module github.com/insolite-dev/notya
+module github.com/sottey/renotevc
 
 go 1.17
 

@@ -11,9 +11,9 @@ import (
 	"os"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/insolite-dev/notya/assets"
-	"github.com/insolite-dev/notya/lib/models"
-	"github.com/insolite-dev/notya/pkg"
+	"github.com/sottey/renotevc/assets"
+	"github.com/sottey/renotevc/lib/models"
+	"github.com/sottey/renotevc/pkg"
 	"github.com/spf13/cobra"
 )
 
@@ -21,7 +21,7 @@ import (
 var removeCommand = &cobra.Command{
 	Use:     "remove",
 	Aliases: []string{"rm", "delete"},
-	Short:   "Remove/Delete a notya element",
+	Short:   "Delete a renotevc element",
 	Run:     runRemoveCommand,
 }
 
@@ -31,7 +31,7 @@ var removeAll bool
 func initRemoveCommand() {
 	removeCommand.Flags().BoolVarP(
 		&removeAll, "all", "a", false,
-		"Remove all nodes (including nodes under the directories)",
+		"Remove all nodes (including child nodes)",
 	)
 
 	appCommand.AddCommand(removeCommand)
@@ -60,7 +60,7 @@ func runRemoveCommand(cmd *cobra.Command, args []string) {
 	loading.Start()
 
 	// Generate array of all node names.
-	_, nodeNames, err := service.GetAll("", "", models.NotyaIgnoreFiles)
+	_, nodeNames, err := service.GetAll("", "", models.RenotevcIgnoreFiles)
 
 	loading.Stop()
 	if err != nil {
