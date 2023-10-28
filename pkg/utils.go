@@ -12,6 +12,7 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/skratchdot/open-golang/open"
 	"github.com/sottey/renotevc/lib/models"
 )
 
@@ -176,17 +177,23 @@ func OpenViaEditor(filepath string, stdargs models.StdArgs, settings models.Sett
 		return pathErr
 	}
 
-	// Generate vi command to open file.
-	editorCmd := &exec.Cmd{
-		Path:   editor,
-		Args:   []string{editor, filepath},
-		Stdin:  stdargs.Stdin,
-		Stdout: stdargs.Stdout,
-		Stderr: stdargs.Stderr,
-	}
+	if noteHasSuffix(filepath, strings.Split(settings.ExternalSuffixList, ",")) {
+		if err := open.Run(filepath); err != nil {
+			return err
+		}
+	} else {
+		// Generate command to open file.
+		editorCmd := &exec.Cmd{
+			Path:   editor,
+			Args:   []string{editor, filepath},
+			Stdin:  stdargs.Stdin,
+			Stdout: stdargs.Stdout,
+			Stderr: stdargs.Stderr,
+		}
 
-	if err := editorCmd.Run(); err != nil {
-		return err
+		if err := editorCmd.Run(); err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -224,6 +231,15 @@ func NormalizePath(path string) string {
 	}
 
 	return build
+}
+
+func noteHasSuffix(notePath string, suffixList []string) bool {
+	for _, suffix := range suffixList {
+		if strings.HasSuffix(notePath, suffix) {
+			return true
+		}
+	}
+	return false
 }
 
 // IsPathUpdated checks notes' differences of [old] and [current] settings.

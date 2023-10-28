@@ -33,7 +33,7 @@ var CreatePromptQuestion = []*survey.Question{
 	{
 		Prompt: &survey.Input{
 			Message: "Title",
-			Help:    "Append to your note any title you want, and then complete file name with special file name type | e.g: new_note.md",
+			Help:    "Give your note any title you want, and then complete file name with special file name type if wanteed | e.g: new_note.md",
 		},
 		Validate: survey.MinLength(1),
 	},
@@ -47,8 +47,8 @@ var MkdirPromptQuestion = []*survey.Question{
 	},
 }
 
-// OpenViaEditorPromt is a confirm prompt for editor editing.
-var OpenViaEditorPromt = &survey.Confirm{
+// OpenViaEditorPrompt is a confirm prompt for editor editing.
+var OpenViaEditorPrompt = &survey.Confirm{
 	Message: "Open with editor?",
 	Help:    "Open note using default editor?",
 	Default: false,

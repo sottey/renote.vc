@@ -104,7 +104,7 @@ func runRemoteConnectCommand(cmd *cobra.Command, args []string) {
 		loading.Start()
 
 		s := service.StateConfig()
-		updatedS := s.CopyWith(nil, nil, nil, nil, &promptResult.FirebaseProjectID, &promptResult.FirebaseAccountKey, &promptResult.FirebaseCollection)
+		updatedS := s.CopyWith(nil, nil, nil, nil, nil, &promptResult.FirebaseProjectID, &promptResult.FirebaseAccountKey, &promptResult.FirebaseCollection)
 
 		// Validate provided firebase connection:
 		isEnabled := services.IsFirebaseEnabled(updatedS, &localService)
@@ -153,7 +153,7 @@ func runRemoteDisconnectCommand(cmd *cobra.Command, args []string) {
 	case services.FIRE.ToStr():
 		empty := ("")
 		s := service.StateConfig()
-		service.WriteSettings(s.CopyWith(nil, nil, nil, nil, &empty, &empty, &empty))
+		service.WriteSettings(s.CopyWith(nil, nil, nil, nil, nil, &empty, &empty, &empty))
 	}
 
 	loading.Stop()

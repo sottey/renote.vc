@@ -17,8 +17,11 @@ const (
 	DefaultAppName   = "renotevc"
 	SettingsName     = ".settings.json"
 	DefaultEditor    = "vi"
-	DefaultLocalPath = "renotevc"
+	DefaultLocalPath = ".rvc/renotevc"
 )
+
+// List of extensions that should be opened with something other than the default editor (can't be a const...)
+var DefaultExternalSuffixList = ".pdf,.exe,.zip,.tar,.rtf,.png,.svg,.jpg,.jpeg,.gif,.xlsx,.xls,.docx,.doc,.pptx,.ppt"
 
 // RenotevcIgnoreFiles are those files that shouldn't
 // be represented as note files.
@@ -32,14 +35,15 @@ var RenotevcIgnoreFiles []string = []string{
 //
 //	Example:
 //
-// ╭────────────────────────────────────────────────────╮
-// │ Name: renotevc                                     │
-// │ Editor: vi                                         │
-// │ Notes Path: /User/random-user/renotevc/notes       │
-// │ Firebase Project ID: renotevc-98tf3                │
-// │ Firebase Account Key: /User/.../renotevc/key.json  │
-// │ Firebase Collection: renotevc-notes                │
-// ╰────────────────────────────────────────────────────╯
+// ╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+// │ Name: renotevc                                                                                                   │
+// │ Editor: vi                                                                                                       │
+// │ DefaultExternalSuffixList: ".pdf,.exe,.zip,.tar,.rtf,.png,.svg,.jpg,.jpeg,.gif,.xlsx,.xls,.docx,.doc,.pptx,.ppt" │
+// │ Notes Path: /User/random-user/renotevc/notes                                                                     │
+// │ Firebase Project ID: renotevc-98tf3                                                                              │
+// │ Firebase Account Key: /User/.../renotevc/key.json                                                                │
+// │ Firebase Collection: renotevc-notes                                                                              │
+// ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 type Settings struct {
 	// Alert: development related field, shouldn't be used in production.
 	ID string `json:",omitempty"`
@@ -57,6 +61,10 @@ type Settings struct {
 	//  and etc. shortly each code editor that could be opened by its command.
 	//  like: `code .` or `nvim .`.
 	Editor string `json:"editor" default:"vi"`
+
+	// Note title extensions that should be opened with their default editor, not the
+	// editor specified in the Editor setting
+	ExternalSuffixList string `json:"external_suffix_list" default:".pdf,.exe,.zip,.tar,.rtf,.png,.svg,.jpg,.jpeg,.gif,.xlsx,.xls,.docx,.doc,.pptx,.ppt"`
 
 	// Local "notes" folder path for notes, independently from [~/renotevc/] folder.
 	// Must be given full path, like: "./User/john-doe/.../my-renotevc-notes/"
@@ -87,6 +95,7 @@ func (s *Settings) CopyWith(
 	ID *string,
 	Name *string,
 	Editor *string,
+	ExternalSuffixList *string,
 	NotesPath *string,
 	FirebaseProjectID *string,
 	FirebaseAccountKey *string,
@@ -102,6 +111,9 @@ func (s *Settings) CopyWith(
 	}
 	if Editor != nil {
 		ss.Editor = *Editor
+	}
+	if ExternalSuffixList != nil {
+		ss.ExternalSuffixList = *ExternalSuffixList
 	}
 	if NotesPath != nil {
 		ss.NotesPath = *NotesPath
@@ -122,9 +134,10 @@ func (s *Settings) CopyWith(
 // InitSettings returns default variant of settings structure model.
 func InitSettings(notesPath string) Settings {
 	return Settings{
-		Name:      DefaultAppName,
-		Editor:    DefaultEditor,
-		NotesPath: notesPath,
+		Name:               DefaultAppName,
+		Editor:             DefaultEditor,
+		ExternalSuffixList: DefaultExternalSuffixList,
+		NotesPath:          notesPath,
 	}
 }
 
@@ -172,5 +185,5 @@ func (s *Settings) FirePath() string {
 
 // IsValid checks validness of settings structure.
 func (s *Settings) IsValid() bool {
-	return len(s.Name) > 0 && len(s.Editor) > 0 && len(s.NotesPath) > 0
+	return len(s.Name) > 0 && len(s.Editor) > 0 && len(s.ExternalSuffixList) > 0 && len(s.NotesPath) > 0
 }

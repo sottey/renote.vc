@@ -19,7 +19,7 @@ import (
 // createCommand is a command model that used to create new notes or files.
 var createCommand = &cobra.Command{
 	Use:     "create",
-	Aliases: []string{"cr", "new", "add"},
+	Aliases: []string{"c", "a", "new", "add"},
 	Short:   "Create new node (file or folder)",
 	Run:     runCreateCommand,
 }
@@ -88,7 +88,7 @@ func createAndFinish(title string) {
 
 	// Ask for, open or not created note with editor.
 	var openNote bool
-	survey.AskOne(assets.OpenViaEditorPromt, &openNote)
+	survey.AskOne(assets.OpenViaEditorPrompt, &openNote)
 
 	if openNote {
 		// Open created note-file to edit it.
