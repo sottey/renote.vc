@@ -28,4 +28,7 @@ main
 
 # vscode workspace 
 renote.vc.code-workspace
+
+# binaries
 renotevc
+dist
