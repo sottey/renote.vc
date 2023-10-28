@@ -32,3 +32,4 @@ renote.vc.code-workspace
 # binaries
 renotevc
 dist
+.DS_Store
