@@ -1,0 +1,8 @@
+site_name: renote.vc
+site_url: https://renote.vc/
+
+nav:
+  - Home: index.md
+  - Usage: usage.md
+  - On GitHub: https://github.com/sottey/renote.vc
+

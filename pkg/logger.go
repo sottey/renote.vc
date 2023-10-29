@@ -8,9 +8,11 @@ package pkg
 
 import (
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/briandowns/spinner"
+	"github.com/charmbracelet/glamour"
 	"github.com/fatih/color"
 	"github.com/mattn/go-colorable"
 	"github.com/sottey/renotevc/lib/models"
@@ -120,7 +122,13 @@ func PrintNote(note models.Note) {
 		fmt.Sprintf("%s%s%s", GREY, note.Path, NOCOLOR),
 	)
 
-	body := fmt.Sprintf("\n%v", note.Body)
+	out, err := glamour.Render(note.Body, "dark")
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	body := fmt.Sprintf("\n%v", out) //note.Body)
 
 	// Log the final note files.
 	text.Println(title)
